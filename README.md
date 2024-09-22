@@ -7,11 +7,13 @@ The goal is to train a neural network to properly split points between these cla
 
 The data is from: [caxenie/gradient-descent-ann](https://github.com/caxenie/gradient-descent-ann).
 
-Training data: input.csv
+Training data: `input.csv`
 
-Test data: testing.csv
+Test data: `testing.csv`
 
-Expected labels: expected.csv
+Expected labels: `expected.csv`
+
+The file `merged_testing.csv` is the test data together with the expected labels in one place. It's used to visualize the testing points with `visualize_data`.
 
 ## Building
 
