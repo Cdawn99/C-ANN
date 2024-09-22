@@ -13,7 +13,7 @@
 
 #define SCREEN_WIDTH 900
 #define SCREEN_HEIGHT 900
-#define ZOOM_FACTOR 40.0f
+#define ZOOM_FACTOR 42.9f
 
 #define POINT_RADIUS 0.2f
 
@@ -58,13 +58,9 @@ int main(void) {
     SetTargetFPS(60);
 
     Camera2D camera = {
-        .target = {
-            .x = MIN_X,
-            .y = MIN_Y,
-        },
         .offset = {
-            .x = (MAX_X - MIN_X) / 2,
-            .y = (MAX_Y - MIN_Y) / 2,
+            .x = SCREEN_WIDTH/2.0f,
+            .y = SCREEN_HEIGHT/2.0f,
         },
         .zoom = ZOOM_FACTOR,
     };
@@ -73,6 +69,10 @@ int main(void) {
         BeginDrawing();
             ClearBackground(RAYWHITE);
             BeginMode2D(camera);
+                DrawTextEx(GetFontDefault(), "-10", (Vector2){-10.3, 0}, 0.8, 0.08, BLACK);
+                DrawTextEx(GetFontDefault(), "10", (Vector2){9.7, 0}, 0.8, 0.08, BLACK);
+                DrawLine(-10, 0, 10, 0, BLACK);
+                DrawLine(0, -10, 0, 10, BLACK);
                 for (size_t i = 0; i < points.length; i++) {
                     DrawCircleV(points.items[i].p, POINT_RADIUS, points.items[i].classification == 1 ? RED : BLUE);
                 }
