@@ -1,5 +1,5 @@
-#define UTILS_IMPLEMENTATION
-#include "utils.h"
+#define DAWN_IMPLEMENTATION
+#include "dawn_utils.h"
 
 #include "raylib.h"
 
@@ -33,12 +33,13 @@ void get_classified_points_from_csv(ClassifiedPoints *points, const char *filepa
         return;
     }
 
-    char *data;
-    if (read_entire_file(filepath, &data) == 0) {
+    DawnStringBuilder data = {0};
+    if (dawn_read_entire_file(filepath, &data) == 0) {
         return;
     }
+    DAWN_SB_APPEND_BUF(&data, "", 1);
 
-    char *token = strtok(data, ",\n");
+    char *token = strtok(data.items, ",\n");
     while (token) {
         ClassifiedPoint p = {0};
 
@@ -51,10 +52,10 @@ void get_classified_points_from_csv(ClassifiedPoints *points, const char *filepa
         p.classification = atof(token);
         token = strtok(NULL, ",\n");
 
-        UTILS_DA_APPEND(points, p);
+        DAWN_DA_APPEND(points, p);
     }
 
-    free(data);
+    DAWN_SB_FREE(data);
 }
 
 int main(int argc, char **argv) {
@@ -127,8 +128,8 @@ int main(int argc, char **argv) {
 
     CloseWindow();
 
-    UTILS_DA_FREE(&training);
-    UTILS_DA_FREE(&testing);
+    DAWN_DA_FREE(training);
+    DAWN_DA_FREE(testing);
 
     return 0;
 }
